@@ -33,7 +33,7 @@ with mp_hands.Hands(
     if results.multi_hand_landmarks:
 
       for hand_landmarks in results.multi_hand_landmarks:
-        # Get hand index to check label (left or right)
+        # Get hand index to check label (left or right hand)
         handIndex = results.multi_hand_landmarks.index(hand_landmarks)
         handLabel = results.multi_handedness[handIndex].classification[0].label
 
@@ -44,10 +44,7 @@ with mp_hands.Hands(
         for landmarks in hand_landmarks.landmark:
           handLandmarks.append([landmarks.x, landmarks.y])
 
-        # Test conditions for each finger: Count is increased if finger is 
-        #   considered raised.
-        # Thumb: TIP x position must be greater or lower than IP x position, 
-        #   deppeding on hand label.
+        
         if handLabel == "Left" and handLandmarks[4][0] > handLandmarks[3][0]:
           fingernow = "poong "
         elif handLabel == "Right" and handLandmarks[4][0] < handLandmarks[3][0]:
